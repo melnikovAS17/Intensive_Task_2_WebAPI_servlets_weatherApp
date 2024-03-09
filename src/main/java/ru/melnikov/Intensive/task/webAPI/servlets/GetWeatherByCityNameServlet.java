@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.melnikov.Intensive.task.webAPI.utils.connections.Connection;
 import ru.melnikov.Intensive.task.webAPI.utils.jsonParser.JsonParser;
+import ru.melnikov.Intensive.task.webAPI.validator.CityNameValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +19,8 @@ public class GetWeatherByCityNameServlet extends HttpServlet {
     Connection connection;
     JsonParser jsonParser;
 
+    CityNameValidator cityNameValidator;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/myJsp/formForSelectionCity.jsp").forward(req, resp);
@@ -26,6 +29,13 @@ public class GetWeatherByCityNameServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         connection = new Connection();
         String city = req.getParameter("city");
+        cityNameValidator = new CityNameValidator(city);
+
+        if(!cityNameValidator.correctValue()){
+
+            getServletContext().getRequestDispatcher("/myJsp/formForSelectionCity.jsp").forward(req, resp);
+        }
+
         jsonParser = new JsonParser(connection.getWeatherAPI(city));
 
         //TODO добавить валидацию ActionSupport, добавить тесты, добавить стилей в jsp, добавить коментарии
