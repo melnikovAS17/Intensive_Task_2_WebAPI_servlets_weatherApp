@@ -1,5 +1,7 @@
 package ru.melnikov.Intensive.task.webAPI.utils.connections;
 
+import ru.melnikov.Intensive.task.webAPI.utils.connection.properties.PropertiesLoader;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,6 +13,7 @@ import java.net.URLConnection;
  * удалённому рессурсу с погодными показателями, подключение - есть запрос
  * по определённому адрессу и передачи необходимых параметров (например: Api key)
  */
+
 
 public class Connection {
 
@@ -32,16 +35,16 @@ public class Connection {
      * Данный метод возвращает данные о текущей погоде в выбранном городе
      */
     public String getWeatherAPICurrentValues(String city){
-        return  getApiResourcesMessage("http://api.openweathermap.org/data/2.5/weather?q="
-                + city + "&appid=82ab1d2e43ba360854714aed4aa30b0e&units=metric");
+        return  getApiResourcesMessage(PropertiesLoader.loadProperty("url.api.current.weather")
+                + city + PropertiesLoader.loadProperty("api.key"));
     }
 
     /**
      * Данный метод возвращает прогноз погоды на 5 дней в выбранном городе
      */
     public String getWeatherAPIPrognosis(String city){
-        return  getApiResourcesMessage("http://api.openweathermap.org/data/2.5/forecast?q=" +
-                city + "&appid=82ab1d2e43ba360854714aed4aa30b0e");
+        return  getApiResourcesMessage(PropertiesLoader.loadProperty("url.api.forecast.weather") +
+                city + PropertiesLoader.loadProperty("api.key"));
     }
 
     /**

@@ -32,7 +32,8 @@ public class JsonParserPrognosisWeather {
     public double[] getTempListOfEachDay(){
         double[] temperatures = new double[5];
         for (int i = 0; i < 5; i++){
-            temperatures[i] = listDays(i).get("main").get("temp").asDouble();
+            //-273,15 - тк температура с ресурса приходит в Кельвинах и округляем до 2 наков после запятой
+            temperatures[i] = Math.round((listDays(i).get("main").get("temp").asDouble() - 273.15)*100.0)/100.0;
         }
         return temperatures;
     }
@@ -43,7 +44,7 @@ public class JsonParserPrognosisWeather {
     public double[] getTemFeelsLikeListOfEachDay(){
         double[] temperaturesFeelsLike = new double[5];
         for (int i = 0; i < 5; i++){
-            temperaturesFeelsLike[i] = listDays(i).get("main").get("feels_like").asDouble();
+            temperaturesFeelsLike[i] = Math.round((listDays(i).get("main").get("feels_like").asDouble() - 273.15)*100.0)/100.0;
         }
         return temperaturesFeelsLike;
     }
