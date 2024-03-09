@@ -1,0 +1,3 @@
+/start - main page
+/weather - page with search by city, the current weather should be returned
+/prognosis - page with a search by city, a forecast for 5 days should be returned
