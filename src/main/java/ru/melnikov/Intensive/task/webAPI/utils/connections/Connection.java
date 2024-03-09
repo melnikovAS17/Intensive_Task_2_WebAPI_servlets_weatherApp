@@ -6,20 +6,50 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
+/**
+ * Данный класс содержит в себе функционал подключения серверного приложения (this) к
+ * удалённому рессурсу с погодными показателями, подключение - есть запрос
+ * по определённому адрессу и передачи необходимых параметров (например: Api key)
+ */
 
 public class Connection {
 
+    /**
+     * Два конструктора для удобства полльзования классом
+     */
     public Connection(String city){
-        getWeatherAPI(city);
+        getWeatherAPICurrentValues(city);
     }
     public Connection(){}
 
-    public String getWeatherAPI(String city){
-        return  getConnectionApi("http://api.openweathermap.org/data/2.5/weather?q="
+    /**
+     * Методы ниже являются конекторами, принимающими в качестве параметра названия города,
+     * погоду в котором нужно получить, возвращают строку String, в которой написан код в
+     * формате JSON пришедший от удалённого ресурса
+     */
+
+    /**
+     * Данный метод возвращает данные о текущей погоде в выбранном городе
+     */
+    public String getWeatherAPICurrentValues(String city){
+        return  getApiResourcesMessage("http://api.openweathermap.org/data/2.5/weather?q="
                 + city + "&appid=82ab1d2e43ba360854714aed4aa30b0e&units=metric");
     }
 
-    private static String getConnectionApi(String urlAddress){
+    /**
+     * Данный метод возвращает прогноз погоды на 5 дней в выбранном городе
+     */
+    public String getWeatherAPIPrognosis(String city){
+        return  getApiResourcesMessage("http://api.openweathermap.org/data/2.5/forecast?q=" +
+                city + "&appid=82ab1d2e43ba360854714aed4aa30b0e");
+    }
+
+    /**
+     * Данный метод является основным узлом коннекта с ресурсом погоды,
+     * устанавливает свзяьщ между приложениями по URL и открывает поток чтения,
+     * считывая JSON, добавляет его элементы в строку (использован StringBuilder).
+     */
+    private static String getApiResourcesMessage(String urlAddress){
         StringBuilder content = new StringBuilder();
 
         try {
