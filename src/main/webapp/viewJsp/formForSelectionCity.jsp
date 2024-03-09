@@ -12,5 +12,10 @@
     <input required name="city">
     <button type="submit">Show</button>
 </form>
+<br>
+<form method="get" action="/start">
+    <button type="submit">Start page</button>
+</form>
+
 </body>
 </html>
