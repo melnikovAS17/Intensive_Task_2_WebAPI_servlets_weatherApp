@@ -5,16 +5,20 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
 
-class JsonParserCurrentDayWeatherTest {
+class JsonParserPrognosisWeatherTest {
 
-    JsonParserCurrentDayWeather jsonParserCurrentDayWeather;
+    JsonParserPrognosisWeather jsonParserPrognosisWeather;
 
     @BeforeEach
     public void init() throws JsonProcessingException {
 
         String jsonText = "{\n" +
-                "  \"main\": {\n" +
+                "  \"list\": [\n" +
+                "    {\n" +
+                "      \"dt\": 1661871600,\n" +
+                "      \"main\": {\n" +
                 "        \"temp\": 296.76,\n" +
                 "        \"feels_like\": 296.98,\n" +
                 "        \"temp_min\": 296.76,\n" +
@@ -23,30 +27,25 @@ class JsonParserCurrentDayWeatherTest {
                 "        \"sea_level\": 1015,\n" +
                 "        \"grnd_level\": 933,\n" +
                 "        \"humidity\": 69,\n" +
-                "        \"temp_kf\": -1.1\n" +
-                "  },\"wind\": {\n" +
+                "        \"temp_kf\": -1.11\n" +
+                "      },\n" +
+                "      \"wind\": {\n" +
                 "        \"speed\": 0.62,\n" +
                 "        \"deg\": 349,\n" +
                 "        \"gust\": 1.18\n" +
                 "      }\n" +
+                "    }\n" +
+                "  ]\n" +
                 "}";
-
-        jsonParserCurrentDayWeather = new JsonParserCurrentDayWeather(jsonText);
+        jsonParserPrognosisWeather = new JsonParserPrognosisWeather(jsonText);
     }
-
 
     @Test
     void getTemp_whenComesStringInFormatJson_theCorrectValueMustBeReturned() {
 
-        double actual = jsonParserCurrentDayWeather.getTemp();
-        Assertions.assertEquals(296.76, actual);
-    }
-
-    @Test
-    void getPressure_whenComesStringInFormatJson_theCorrectValueMustBeReturned() {
-
-        double actual = jsonParserCurrentDayWeather.getPressure();
-        Assertions.assertEquals(1015, actual);
+        double[] listOfActualTemp = jsonParserPrognosisWeather.getTempListOfEachDay();
+        Assertions.assertEquals(1,listOfActualTemp.length);
+        Assertions.assertEquals(296.76, listOfActualTemp[0]);
     }
 
 }

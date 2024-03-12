@@ -18,8 +18,8 @@ public class JsonParserPrognosisWeather {
     private static ObjectMapper mapper;
 
     /**
-     * Метод возвращает объект JsonNode - объект является всё ещё JSON"ом, создан для удобства
-     * написания дальнейших преобразований
+     * Метод возвращает, список дней по ключу 'list' объект JsonNode - объект является всё ещё строкой в формате JSON,
+     * создан для удобства написания дальнейших преобразований
      */
     private JsonNode listDays(int day){
         return  obj.get("list").get(day);
@@ -31,10 +31,13 @@ public class JsonParserPrognosisWeather {
      * Возвращает массив фактических температур
      */
     public double[] getTempListOfEachDay(){
-        double[] temperatures = new double[5];
-        for (int i = 0; i < 5; i++){
-            //-273,15 - тк температура с ресурса приходит в Кельвинах и округляем до 2 наков после запятой
-            temperatures[i] = Math.round((listDays(i).get("main").get("temp").asDouble() - 273.15)*100.0)/100.0;
+        double[] temperatures = null;
+        int i = 0;
+        while (!obj.isEmpty()) {
+            temperatures = new double[5];
+                //-273,15 - тк температура с ресурса приходит в Кельвинах и округляем до 2 наков после запятой
+                temperatures[i] = Math.round((listDays(i).get("main").get("temp").asDouble() - 273.15) * 100.0) / 100.0;
+            i++;
         }
         return temperatures;
     }

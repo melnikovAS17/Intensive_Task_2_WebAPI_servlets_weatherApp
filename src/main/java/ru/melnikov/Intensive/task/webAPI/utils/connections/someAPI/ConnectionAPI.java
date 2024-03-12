@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.http.HttpClient;
 
 /**
  * Данный класс содержит в себе функционал подключения серверного приложения (this) к
@@ -58,7 +59,6 @@ public class ConnectionAPI {
         try {
             URL url = new URL(urlAddress);
             URLConnection urlConn = url.openConnection();
-
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
             String line;
             while ((line = bufferedReader.readLine()) != null){
