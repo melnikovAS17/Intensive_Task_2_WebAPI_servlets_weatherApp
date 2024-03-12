@@ -31,14 +31,13 @@ public class JsonParserPrognosisWeather {
      * Возвращает массив фактических температур
      */
     public double[] getTempListOfEachDay(){
-        double[] temperatures = null;
-        int i = 0;
-        while (!obj.isEmpty()) {
-            temperatures = new double[5];
+
+            double[] temperatures = new double[5];
+            for (int i = 0; i < 5; i++) {
                 //-273,15 - тк температура с ресурса приходит в Кельвинах и округляем до 2 наков после запятой
                 temperatures[i] = Math.round((listDays(i).get("main").get("temp").asDouble() - 273.15) * 100.0) / 100.0;
-            i++;
-        }
+            }
+
         return temperatures;
     }
 

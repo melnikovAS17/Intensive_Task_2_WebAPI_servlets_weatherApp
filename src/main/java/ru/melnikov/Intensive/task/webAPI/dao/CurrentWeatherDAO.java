@@ -20,12 +20,17 @@ public class CurrentWeatherDAO {
     /**
      * Пример метода вставки данных в таблицу бд (метод принимает в аргументы температуру и записывает в бд)
      */
-    public void save(double temp){
+    public void save(double temp, double tempFeelsLike, int pressure, int humidity, double windSpeed){
         try {
             PreparedStatement preparedStatement =
             connectionPostgreSQL.getConnection().prepareStatement(
-                    "INSERT INTO temperature(tmep) values(?) ");
+                    "INSERT INTO temperature(tmep, temp_feels_like, pressure, humidity, wind_speed)" +
+                            " values(?,?,?,?,?) ");
             preparedStatement.setDouble(1,temp);
+            preparedStatement.setDouble(2,tempFeelsLike);
+            preparedStatement.setDouble(3,pressure);
+            preparedStatement.setDouble(4,humidity);
+            preparedStatement.setDouble(5,windSpeed);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

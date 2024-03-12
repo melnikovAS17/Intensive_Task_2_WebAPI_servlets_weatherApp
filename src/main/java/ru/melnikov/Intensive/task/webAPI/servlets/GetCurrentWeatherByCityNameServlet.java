@@ -36,7 +36,6 @@ public class GetCurrentWeatherByCityNameServlet extends HttpServlet {
     public void init() throws ServletException {
         // Создание объекта клаасса Connection, который сожержит в себе логику подключения к нужному ресурсу
         connectionAPI = new ConnectionAPI();
-
         currentWeatherDAO = new CurrentWeatherDAO();
     }
 
