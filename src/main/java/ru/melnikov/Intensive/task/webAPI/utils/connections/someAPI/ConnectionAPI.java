@@ -1,4 +1,4 @@
-package ru.melnikov.Intensive.task.webAPI.utils.connections;
+package ru.melnikov.Intensive.task.webAPI.utils.connections.someAPI;
 
 import ru.melnikov.Intensive.task.webAPI.utils.connection.properties.PropertiesLoader;
 
@@ -15,15 +15,15 @@ import java.net.URLConnection;
  */
 
 
-public class Connection {
+public class ConnectionAPI {
 
     /**
      * Два конструктора для удобства полльзования классом
      */
-    public Connection(String city){
+    public ConnectionAPI(String city){
         getWeatherAPICurrentValues(city);
     }
-    public Connection(){}
+    public ConnectionAPI(){}
 
     /**
      * Методы ниже являются конекторами, принимающими в качестве параметра названия города,
@@ -35,16 +35,16 @@ public class Connection {
      * Данный метод возвращает данные о текущей погоде в выбранном городе
      */
     public String getWeatherAPICurrentValues(String city){
-        return  getApiResourcesMessage(PropertiesLoader.loadProperty("url.api.current.weather")
-                + city + PropertiesLoader.loadProperty("api.key"));
+        return  getApiResourcesMessage(PropertiesLoader.loadPropertyApi("url.api.current.weather")
+                + city + PropertiesLoader.loadPropertyApi("api.key"));
     }
 
     /**
      * Данный метод возвращает прогноз погоды на 5 дней в выбранном городе
      */
     public String getWeatherAPIPrognosis(String city){
-        return  getApiResourcesMessage(PropertiesLoader.loadProperty("url.api.forecast.weather") +
-                city + PropertiesLoader.loadProperty("api.key"));
+        return  getApiResourcesMessage(PropertiesLoader.loadPropertyApi("url.api.forecast.weather") +
+                city + PropertiesLoader.loadPropertyApi("api.key"));
     }
 
     /**

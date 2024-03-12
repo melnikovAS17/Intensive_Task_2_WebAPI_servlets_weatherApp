@@ -1,3 +1,22 @@
 url.api.current.weather=
 url.api.forecast.weather=
 api.key=
+
+
+private static Connection connection;
+
+    static {
+        try {
+            Class.forName(PropertiesLoader.loadPropertyDatabase("database.driver"));
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            connection = DriverManager.getConnection(
+                    PropertiesLoader.loadPropertyDatabase("database.url"),
+                    PropertiesLoader.loadPropertyDatabase("database.username"),
+                    PropertiesLoader.loadPropertyDatabase("database.password"));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }

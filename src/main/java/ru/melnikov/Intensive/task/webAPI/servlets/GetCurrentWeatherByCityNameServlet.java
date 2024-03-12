@@ -1,7 +1,8 @@
 package ru.melnikov.Intensive.task.webAPI.servlets;
 
 
-import ru.melnikov.Intensive.task.webAPI.utils.connections.Connection;
+import ru.melnikov.Intensive.task.webAPI.dao.CurrentWeatherDAO;
+import ru.melnikov.Intensive.task.webAPI.utils.connections.someAPI.ConnectionAPI;
 import ru.melnikov.Intensive.task.webAPI.utils.jsonParser.JsonParserCurrentDayWeather;
 
 import javax.servlet.ServletException;
@@ -16,19 +17,28 @@ import java.io.IOException;
  */
 
 @WebServlet("/weather")
-public class GetWeatherByCityNameServlet extends HttpServlet {
+public class GetCurrentWeatherByCityNameServlet extends HttpServlet {
 
     /**
      * Класс Connection содержит в себе механизм подключения по Api key к удалённому ресурсу,
      * который бесплатно предоставляет данные о погоде, создал данный класс,
      * для удобства чтения и управления ресурсами
      */
-    Connection connection;
+    ConnectionAPI connectionAPI;
 
+    CurrentWeatherDAO currentWeatherDAO;
     /**
      * Данный класс является парсерром JSON формата в Java
      */
     JsonParserCurrentDayWeather jsonParserCurrentDayWeather;
+
+    @Override
+    public void init() throws ServletException {
+        // Создание объекта клаасса Connection, который сожержит в себе логику подключения к нужному ресурсу
+        connectionAPI = new ConnectionAPI();
+
+        currentWeatherDAO = new CurrentWeatherDAO();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -38,12 +48,10 @@ public class GetWeatherByCityNameServlet extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Создание объекта клаасса Connection, который сожержит в себе логику подключения к нужному ресурсу
-        connection = new Connection();
         // Получаем параметры с формы, которые передаёт клиент - Город
         String city = req.getParameter("city");
         // Создаём объект - парсер и передаём в него полученный JSON
-        jsonParserCurrentDayWeather = new JsonParserCurrentDayWeather(connection.getWeatherAPICurrentValues(city));
+        jsonParserCurrentDayWeather = new JsonParserCurrentDayWeather(connectionAPI.getWeatherAPICurrentValues(city));
 
 
         // Устанавливаем преобразованные данные в атрибуты для дальнейшего отображения в Jsp

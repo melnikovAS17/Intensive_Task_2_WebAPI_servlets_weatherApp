@@ -10,10 +10,21 @@ import java.util.Properties;
  */
 public class PropertiesLoader {
 
-    public static String loadProperty(String propertyName) {
+    public static String loadPropertyApi(String propertyName) {
         Properties properties = new Properties();
         try(InputStream inputStream = new FileInputStream(
                 "X:\\JavaProjOnIDE\\Intensive.task.webAPI\\src\\main\\resources\\connection.properties")){
+            properties.load(inputStream);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return properties.getProperty(propertyName);
+    }
+
+    public static String loadPropertyDatabase(String propertyName) {
+        Properties properties = new Properties();
+        try(InputStream inputStream = new FileInputStream(
+                "X:\\JavaProjOnIDE\\Intensive.task.webAPI\\src\\main\\resources\\database.properties")){
             properties.load(inputStream);
         }catch (IOException e){
             e.printStackTrace();

@@ -14,7 +14,8 @@ public class JsonParserPrognosisWeather {
     /**
      * Класс библеотеки Jackson необходимый для работы с JSON
      */
-    private final JsonNode obj;
+    private static JsonNode obj;
+    private static ObjectMapper mapper;
 
     /**
      * Метод возвращает объект JsonNode - объект является всё ещё JSON"ом, создан для удобства
@@ -90,7 +91,7 @@ public class JsonParserPrognosisWeather {
      * перобразованный в строку
      */
     public JsonParserPrognosisWeather(String connection) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        obj = mapper.readTree(connection);
+            mapper = new ObjectMapper();
+            obj = mapper.readTree(connection);
     }
 }

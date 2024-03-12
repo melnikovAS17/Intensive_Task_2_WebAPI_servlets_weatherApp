@@ -13,7 +13,8 @@ public class JsonParserCurrentDayWeather {
     /**
      * Класс библеотеки Jackson необходимый для работы с JSON
      */
-    private final JsonNode obj;
+    private static JsonNode obj;
+    private static ObjectMapper mapper;
 
     /**
      * Метод возвращает фактическую температуру
@@ -58,8 +59,8 @@ public class JsonParserCurrentDayWeather {
      * перобразованный в строку
      */
     public JsonParserCurrentDayWeather(String connection) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-         obj = mapper.readTree(connection);
+            mapper = new ObjectMapper();
+            obj = mapper.readTree(connection);
     }
 
 }
