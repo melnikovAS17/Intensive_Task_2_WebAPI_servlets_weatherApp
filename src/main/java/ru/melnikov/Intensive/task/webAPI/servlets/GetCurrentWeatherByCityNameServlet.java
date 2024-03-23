@@ -1,7 +1,7 @@
 package ru.melnikov.Intensive.task.webAPI.servlets;
 
-
-import ru.melnikov.Intensive.task.webAPI.dao.CurrentWeatherDAO;
+import ru.melnikov.Intensive.task.webAPI.models.WeatherInfoModel;
+import ru.melnikov.Intensive.task.webAPI.services.CurrentWeatherDAO;
 import ru.melnikov.Intensive.task.webAPI.utils.connections.someAPI.ConnectionAPI;
 import ru.melnikov.Intensive.task.webAPI.utils.jsonParser.JsonParserCurrentDayWeather;
 
@@ -32,6 +32,7 @@ public class GetCurrentWeatherByCityNameServlet extends HttpServlet {
      */
     JsonParserCurrentDayWeather jsonParserCurrentDayWeather;
 
+
     @Override
     public void init() throws ServletException {
         // Создание объекта клаасса Connection, который сожержит в себе логику подключения к нужному ресурсу
@@ -52,13 +53,20 @@ public class GetCurrentWeatherByCityNameServlet extends HttpServlet {
         // Создаём объект - парсер и передаём в него полученный JSON
         jsonParserCurrentDayWeather = new JsonParserCurrentDayWeather(connectionAPI.getWeatherAPICurrentValues(city));
 
+        double temp = jsonParserCurrentDayWeather.getTemp();
+        double tempFeels = jsonParserCurrentDayWeather.getTempFellsLike();
+        int pressure = jsonParserCurrentDayWeather.getPressure();
+        int humidity = jsonParserCurrentDayWeather.getHumidity();
+        double windSpeed = jsonParserCurrentDayWeather.getWindSpeed();
 
         // Устанавливаем преобразованные данные в атрибуты для дальнейшего отображения в Jsp
-        req.setAttribute("temp", jsonParserCurrentDayWeather.getTemp());
-        req.setAttribute("feels_like", jsonParserCurrentDayWeather.getTempFellsLike());
-        req.setAttribute("pressure", jsonParserCurrentDayWeather.getPressure());
-        req.setAttribute("humidity", jsonParserCurrentDayWeather.getHumidity());
-        req.setAttribute("wind", jsonParserCurrentDayWeather.getWindSpeed());
+        req.setAttribute("temp", temp);
+        req.setAttribute("feels_like", tempFeels);
+        req.setAttribute("pressure", pressure);
+        req.setAttribute("humidity", humidity);
+        req.setAttribute("wind", windSpeed);
+
+        currentWeatherDAO.save(new WeatherInfoModel(temp,tempFeels,pressure,humidity,windSpeed));
 
         // Перенаправляем клиента на сраницу с результатами погоды в указанном городе
         getServletContext().getRequestDispatcher("/viewJsp/weatherInTheCity.jsp").forward(req, resp);

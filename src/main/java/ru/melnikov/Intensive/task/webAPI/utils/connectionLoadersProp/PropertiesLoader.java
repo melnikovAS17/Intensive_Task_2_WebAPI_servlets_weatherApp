@@ -1,4 +1,4 @@
-package ru.melnikov.Intensive.task.webAPI.utils.connection.properties;
+package ru.melnikov.Intensive.task.webAPI.utils.connectionLoadersProp;
 
 import java.io.FileInputStream;
 import java.io.IOException;

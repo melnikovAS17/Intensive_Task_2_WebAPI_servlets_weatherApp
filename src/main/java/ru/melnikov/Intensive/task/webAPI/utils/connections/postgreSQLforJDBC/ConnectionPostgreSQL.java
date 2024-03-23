@@ -1,10 +1,4 @@
-package ru.melnikov.Intensive.task.webAPI.utils.connections.postgreSQL;
-
-import ru.melnikov.Intensive.task.webAPI.utils.connection.properties.PropertiesLoader;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+package ru.melnikov.Intensive.task.webAPI.utils.connections.postgreSQLforJDBC;
 
 
 /**
@@ -12,7 +6,7 @@ import java.sql.SQLException;
  * удобства восприятия и унификации объекта подключения
  */
 public class ConnectionPostgreSQL {
-    private final Connection connection;
+   /* private final Connection connection;
     public ConnectionPostgreSQL() {
             {
             try {
@@ -33,5 +27,5 @@ public class ConnectionPostgreSQL {
 
     public Connection getConnection() {
         return connection;
-    }
+    }*/
 }

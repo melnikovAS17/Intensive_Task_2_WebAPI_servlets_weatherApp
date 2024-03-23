@@ -1,13 +1,12 @@
 package ru.melnikov.Intensive.task.webAPI.utils.connections.someAPI;
 
-import ru.melnikov.Intensive.task.webAPI.utils.connection.properties.PropertiesLoader;
+import ru.melnikov.Intensive.task.webAPI.utils.connectionLoadersProp.PropertiesLoader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.http.HttpClient;
 
 /**
  * Данный класс содержит в себе функционал подключения серверного приложения (this) к
