@@ -1,0 +1,29 @@
+Яндекс даёт кллюч, который необходимо передать в заголовок header, это нужно сделать в момент коннекта к api
+поэтому нужно сделать следующее: 
+
+private static String getApiResourcesMessage(String urlAddress){
+        StringBuilder content = new StringBuilder();
+
+        try {
+            URL url = new URL(urlAddress);
+            URLConnection urlConn = url.openConnection();
+
+            // Ключ передавать нужно здесь, в headers в chrome его не будет видно
+    
+            urlConn.setRequestProperty("X-Yandex-Weather-Key","28787ччччччs-assasaas--xxxxxx");
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
+            String line;
+            while ((line = bufferedReader.readLine()) != null){
+                content.append(line + "\n");
+            }
+            bufferedReader.close();
+        }catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        
+        return content.toString();
+    }
+
+    public String getWeather (){
+        return  getApiResourcesMessage("https://api.weather.yandex.ru/v2/forecast?lat=52.37125&lon=4.89388");
+    }
