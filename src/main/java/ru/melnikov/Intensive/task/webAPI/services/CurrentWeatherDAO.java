@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import ru.melnikov.Intensive.task.webAPI.models.WeatherInfoModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,7 +24,7 @@ public class CurrentWeatherDAO implements CurrentWeather {
     public List<WeatherInfoModel> getAllMeasurements(){
         List<WeatherInfoModel> weatherInfoModelsList;
             session.beginTransaction();
-            weatherInfoModelsList = session.createQuery("from Produit").list();
+            weatherInfoModelsList = session.createQuery("from WeatherInfoModel").list();
             session.getTransaction().commit();
         return weatherInfoModelsList;
     }

@@ -8,6 +8,7 @@
 <h1>Weather</h1>
 
 <hr/>
+<!--Для примера сделлал преобразование к Цельсиа здесь -->
 <%
 double temp = Math.round(((double) request.getAttribute("temp") -273.15)*100.0)/100.0;
 double tempFeelsLike = Math.round(((double) request.getAttribute("feels_like") -273.15)*100.0)/100.0;

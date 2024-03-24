@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Сервлет для получения показателей погоды на текущий момент, в выбранном городе
@@ -32,11 +33,14 @@ public class GetCurrentWeatherByCityNameServlet extends HttpServlet {
      */
     JsonParserCurrentDayWeather jsonParserCurrentDayWeather;
 
-
     @Override
     public void init() throws ServletException {
         // Создание объекта клаасса Connection, который сожержит в себе логику подключения к нужному ресурсу
         connectionAPI = new ConnectionAPI();
+
+        // Создаётся один объект DAO и он создаст одну сессию для хибернейта, соотв после выполнения одного
+        // метода из дао (ниже метод save()) - сессия будет закррытта и выполнять ещё какие-то меттоды не получится
+        // нужно испоользоовать бин prototype
         currentWeatherDAO = new CurrentWeatherDAO();
     }
 
@@ -44,6 +48,7 @@ public class GetCurrentWeatherByCityNameServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // При отправке гет запроса по адресу '/weather' перенаправляет клиента на страницу с формой
         // для ввода города, в котором нужно узнать погоду
+
         getServletContext().getRequestDispatcher("/viewJsp/formForSelectionCity.jsp").forward(req, resp);
     }
     @Override
